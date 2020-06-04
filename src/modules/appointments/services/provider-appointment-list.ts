@@ -1,4 +1,5 @@
 import { injectable, inject } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import { IAppointmentRepository } from '@modules/appointments/repositories';
 import { Appointment } from '@modules/appointments/infra/typeorm/entities';
@@ -40,7 +41,7 @@ export default class ProviderAppointmentList {
         year,
       });
 
-      await this.cacheProvider.save(cacheKey, appointments);
+      await this.cacheProvider.save(cacheKey, classToClass(appointments));
     }
 
     return appointments;
