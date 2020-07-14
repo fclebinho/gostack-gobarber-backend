@@ -51,25 +51,5 @@ jobs:
         script: | 
           cd ~/app/gostack-gobarber-backend
           yarn
-
-    - name: Run migrations
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        port: ${{ secrets.SSH_PORT }}
-        key: ${{ secrets.SSH_KEY }}
-        script: | 
-          cd ~/app/gostack-gobarber-backend
           ./node_modules/.bin/typeorm migration:run
-
-    - name: Restart application
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        port: ${{ secrets.SSH_PORT }}
-        key: ${{ secrets.SSH_KEY }}
-        script: | 
-          cd ~/app/gostack-gobarber-backend
           pm2 restart gobarber-api
